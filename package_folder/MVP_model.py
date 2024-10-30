@@ -4,7 +4,7 @@ from sklearn.neighbors import NearestNeighbors
 import ast
 
 # Load and preprocess the dataset
-goodreads_df = pd.read_csv('/Users/gbuck/code/gbuck04/booksplore/books_1.Best_Books_Ever.csv')
+goodreads_df = pd.read_csv('raw_data/goodreads.csv')
 goodreads_df = goodreads_df.dropna(subset=['genres', 'rating', 'numRatings'])
 goodreads_df['genres'] = goodreads_df['genres'].apply(lambda x: ast.literal_eval(x) if isinstance(x, str) else [])
 filtered_df = goodreads_df[(goodreads_df['numRatings'] >= 1000) & (goodreads_df['rating'] >= 3.5)]
@@ -27,7 +27,7 @@ knn_model.fit(book_features)
 
 def knn_recommendations(input_title, df, knn_model, top_n=5):
     """
-    Get top N book recommendations using a KNN model, allowing partial title input.
+    Get top  book recommendations using a KNN model, allowing partial title input.
 
     Parameters:
     - input_title (str): Partial or full title of the book for recommendations.
