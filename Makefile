@@ -1,8 +1,8 @@
 build_container_local:
-	docker build --tag=${IMAGE}:dev .
+	docker build --no-cache --tag=${IMAGE}:dev .
 
 run_container_local:
-	docker run -it -e PORT=8000 -p 8080:8000 ${IMAGE}:dev
+	docker run -d -e PORT=8000 -p 8080:8000 ${IMAGE}:dev
 
 build_for_production:
 	docker build \
@@ -18,3 +18,6 @@ deploy_to_cloud_run:
 		--image ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT}/${ARTIFACTSREPO}/${IMAGE}:prod \
 		--memory ${MEMORY} \
 		--region ${GCP_REGION}
+
+check_logs:
+	docker logs -f $(docker ps -q --filter ancestor=${IMAGE}:dev)
