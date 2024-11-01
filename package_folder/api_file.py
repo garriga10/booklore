@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 
 from package_folder.models.model import pred
-from package_folder.models.MVP_model import knn_recommendations
+from package_folder.models.data_load_and_process import load_and_preprocess
+from package_folder.models.main import possible_matches
+
 
 # Creating a FastAPI instance
 
@@ -19,7 +21,11 @@ def prediction(sepal_length, sepal_width, petal_length, petal_width):
     prediction = pred(sepal_length, sepal_width, petal_length, petal_width)
     return {"prediction": int(prediction[0])}
 
-@app.get('/book_recommendations')
-def book_recommendations(input_title, df, knn_model, top_n=5):
-    book_reco = knn_recommendations(input_title, df, knn_model, top_n=5)
-    return {"Here is your book recommendation ":str(book_reco)}
+@app.get('/recommendations')
+def get_possible_matches(input_title: str):
+    data = possible_matches(input_title)
+
+    if isinstance(data, dict) and "error" in data:
+        return data  # Renvoyer l'erreur
+
+    return {"possible matches": data}
