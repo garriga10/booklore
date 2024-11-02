@@ -19,5 +19,10 @@ def possible_matches(input_title, df=filtered_df):
 
     # If multiple matches are found, prompt the user to select one
     if len(matches) > 1:
-        possible_list = {i + 1: title for i, title in enumerate(matches['title'])}
+        possible_list = [
+                    {'index': i + 1, 'title': row['title'], 'bookId': row['bookId']}
+                    for i, row in matches.iterrows()
+                ]
         return possible_list
+
+possible_matches('harry')
