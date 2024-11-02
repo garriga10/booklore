@@ -24,5 +24,3 @@ def possible_matches(input_title, df=filtered_df):
                     for i, row in matches.iterrows()
                 ]
         return possible_list
-
-possible_matches('harry')

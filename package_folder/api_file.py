@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 
 from package_folder.models.model import pred
+from package_folder.models.model_reco_1 import pred
 from package_folder.models.data_load_and_process import load_and_preprocess
 from package_folder.models.main import possible_matches
-
 
 # Creating a FastAPI instance
 
@@ -29,3 +29,8 @@ def get_possible_matches(input_title: str):
         return data  # Renvoyer l'erreur
 
     return {"possible matches": data}
+
+@app.get('/model-suggest')
+def get_model_recommendations(bookid:str):
+    reco = pred(bookid)
+    return {'suggestions':reco}
