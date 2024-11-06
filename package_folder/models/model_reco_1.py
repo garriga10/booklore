@@ -7,7 +7,7 @@ ROOT_PATH = os.path.dirname(os.path.dirname(__file__))
 
 filtered_df = load_and_preprocess()[0]
 book_features = load_and_preprocess()[1]
-model = model_settings(book_features)
+
 
 def pred(bookid: str, top_n=5):
     model_path = os.path.join(ROOT_PATH, 'models', 'model-reco-1.pkl')
@@ -25,5 +25,5 @@ def pred(bookid: str, top_n=5):
     recommended_books = recommended_books[['title', 'author', 'publisher', 'rating']].copy()
     recommended_books['distance'] = distances[0][1:]
     recommended_books = recommended_books[['title', 'author', 'publisher', 'rating', 'distance']].to_dict(orient='records')
-
+    #adding the Not Found string
     return recommended_books

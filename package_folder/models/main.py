@@ -3,8 +3,7 @@ from package_folder.models.model_settings import model_settings
 
 # 1. Loading and processing data
 
-filtered_df = load_and_preprocess()[0]
-book_features = load_and_preprocess()[1]
+filtered_df,book_features = load_and_preprocess()
 
 # 2. fitting the model on the book_features
 
