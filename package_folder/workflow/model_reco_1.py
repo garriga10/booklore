@@ -20,8 +20,8 @@ def pred(bookid: str, top_n=5):
     distances, indices = model.kneighbors(book_features.iloc[[book_index]], n_neighbors=top_n + 1)
 
     recommended_books = filtered_df.iloc[indices[0][1:]] #filtering the original df with the nearest books we identified
-    recommended_books = recommended_books[['title', 'author', 'publisher', 'rating']].copy()
+    recommended_books = recommended_books[['title', 'genres','author','publisher','description','rating','coverImg']].copy()
     recommended_books['distance'] = distances[0][1:]
     recommended_books = recommended_books.fillna("Not available")
-    recommended_books = recommended_books[['title', 'author', 'publisher', 'rating', 'distance']].to_dict(orient='records')
+    recommended_books = recommended_books[['title', 'genres','author','publisher','description','rating','coverImg']].to_dict(orient='records')
     return recommended_books
