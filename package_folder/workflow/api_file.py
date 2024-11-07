@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 
-from package_folder.models.model import pred
-from package_folder.models.model_reco_1 import pred
-from package_folder.models.data_load_and_process import load_and_preprocess
-from package_folder.models.main import possible_matches
+from package_folder.workflow.model_reco_1 import pred
+from package_folder.workflow.data_load_and_process import load_and_preprocess
+from package_folder.workflow.main import possible_matches
 
 # Creating a FastAPI instance
 
@@ -15,11 +14,6 @@ app = FastAPI()
 @app.get("/")
 def root():
     return {'greetings':'🚀 Welcome to the booklore api ! 🚀'}
-
-@app.get("/dumb_model")
-def prediction(sepal_length, sepal_width, petal_length, petal_width):
-    prediction = pred(sepal_length, sepal_width, petal_length, petal_width)
-    return {"prediction": int(prediction[0])}
 
 @app.get('/recommendations')
 def get_possible_matches(input_title: str):

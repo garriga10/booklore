@@ -1,14 +1,10 @@
-from package_folder.models.data_load_and_process import load_and_preprocess
-from package_folder.models.model_settings import model_settings
+from package_folder.workflow.data_load_and_process import load_and_preprocess
 
 # 1. Loading and processing data
 
-filtered_df = load_and_preprocess()[0]
-book_features = load_and_preprocess()[1]
+filtered_df,book_features = load_and_preprocess()
 
 # 2. fitting the model on the book_features
-
-model = model_settings(book_features)
 
 def possible_matches(input_title, df=filtered_df):
 
