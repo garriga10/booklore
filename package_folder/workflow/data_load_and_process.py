@@ -12,6 +12,7 @@ def load_and_preprocess():
 
     # Load and preprocess the dataset
     file_path = os.path.join(project_root,'raw_data','goodreads.csv')
+    breakpoint()
     goodreads_df = pd.read_csv(file_path)
 
     # Drop rows with missing essential data and parse genres
