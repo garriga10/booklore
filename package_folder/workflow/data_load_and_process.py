@@ -1,7 +1,6 @@
 import pandas as pd
 import ast
 import os
-import pdb
 import re
 
 from sklearn.preprocessing import MultiLabelBinarizer, MinMaxScaler
@@ -12,7 +11,6 @@ def load_and_preprocess():
 
     # Load and preprocess the dataset
     file_path = os.path.join(project_root,'raw_data','goodreads.csv')
-    breakpoint()
     goodreads_df = pd.read_csv(file_path)
 
     # Drop rows with missing essential data and parse genres
@@ -42,3 +40,12 @@ def load_and_preprocess():
                             axis=1)
 
     return filtered_df, book_features
+
+def load_and_preprocess_DL():
+        # Load and preprocess the dataset
+    file_path = os.path.join(project_root,'raw_data','goodreads_transformed.csv')
+    goodreads_df = pd.read_csv(file_path)
+    goodreads_df['bookId'] = goodreads_df['bookId'].apply(lambda x: str(re.match(r'^\d+', x).group()) if isinstance(x, str) else None)
+    goodreads_df['embed'] = goodreads_df['embed'].apply(lambda x: ast.literal_eval(x.replace('[ ','[').replace('  ',',').replace(' ',',')))
+
+    return goodreads_df

@@ -2,15 +2,14 @@ import os
 import pickle
 import re
 from package_folder.workflow.data_load_and_process import load_and_preprocess
-from package_folder.workflow.load_pipe import preprocessor_pipe
 
 ROOT_PATH = os.path.dirname(os.path.dirname(__file__))
 
-filtered_df,book_features = preprocessor_pipe()
+filtered_df,book_features = load_and_preprocess()
 
 
 def pred(bookid: str, top_n=5):
-    model_path = os.path.join(ROOT_PATH, 'workflow','models', 'model-reco-3.pkl')
+    model_path = os.path.join(ROOT_PATH, 'workflow','models', 'model-reco-1.pkl')
 
     with open(model_path, 'rb') as file:
         model = pickle.load(file)
@@ -32,5 +31,3 @@ def pred(bookid: str, top_n=5):
     recommended_books = recommended_books.fillna("Not available")
     recommended_books = recommended_books[['title', 'genres','author','publisher','description','rating','coverImg']].to_dict(orient='records')
     return recommended_books
-
-pred('5881.Harry_Potter_and_the_Chamber_of_Secrets')
