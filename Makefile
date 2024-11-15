@@ -7,7 +7,7 @@ run_container_local:
 build_for_production:
 	docker build \
 		--platform linux/amd64 \
-    -t ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT}/${ARTIFACTSREPO}/${IMAGE}:prod \
+    -t ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT}/${ARTIFACTSREPO}/${IMAGE}:prod --no-cache\
 		.
 
 push_image_production:
