@@ -5,6 +5,7 @@ from package_folder.workflow.model_reco_1 import pred
 from package_folder.workflow.data_load_and_process import load_and_preprocess
 from package_folder.workflow.main import possible_matches
 from package_folder.workflow.DL_model import pred_DL
+from package_folder.workflow.library_book_info import library_book_info
 
 # Creating a FastAPI instance
 
@@ -36,5 +37,7 @@ def get_DL_model_recommendations(bookid:str):
     reco = pred_DL(bookid)
     return {'suggestions':reco}
 
-
-print(get_DL_model_recommendations('15881.Harry_Potter_and_the_Chamber_of_Secrets'))
+@app.get('/book-info')
+def get_book_info(bookid:str):
+    book_info = library_book_info(bookid)
+    return {'book-info':book_info}
